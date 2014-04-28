@@ -1,0 +1,62 @@
+.chart {
+  min-height: 30px;
+  position: relative;
+}
+
+.list-chart {
+  position: relative;
+  display: block;
+  min-height: 30px;
+  margin: 1em 0;
+  border-left: 1px solid #000;
+  border-bottom: 2px solid #000;
+}
+.list-chart li {
+  position: relative;
+  display: block;
+  margin-bottom: 5px;
+}
+.list-chart .bar {
+  display: block;
+  width: 0;
+  height: 30px;
+  background-color: #E8BCB8;
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  -ms-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+.list-chart span {
+  font-size: 15px;
+  line-height: 30px;
+  display: inline-block;
+}
+.list-chart span.value {
+  text-align: right;
+  display: block;
+  margin-right: -20px;
+}
+.list-chart span.char {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  margin-top: -15px;
+}
+
+.range {
+  position: absolute;
+  bottom: -30px;
+  font-size: 12px;
+  margin-left: -6px;
+  text-align: right;
+}
+.range.min-val {
+  left: 0;
+}
+.range.med-val {
+  left: 50%;
+}
+.range.max-val {
+  left: 100%;
+}

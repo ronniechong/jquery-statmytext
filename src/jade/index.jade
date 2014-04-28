@@ -1,0 +1,31 @@
+!!!5
+html
+	head
+		title Stat My Text
+		script(type="text/javascript", src="http://code.jquery.com/jquery-2.1.0.min.js")
+		script(type="text/javascript", src="assets/js/jquery.statmytext.min.js")
+		link(href="assets/css/default.css", rel="stylesheet", type="text/css")
+		link(href="assets/css/jquery.statmytext.css", rel="stylesheet", type="text/css")
+		script(type="text/javascript")
+			$(function(){
+				$('#statmytext').statMyText();
+			});
+	body
+		article.container#statmytext
+			header
+				h1 Stat 
+					span My Text
+			section.input-text
+				label(for="textInput") Enter your text here
+				.input-container
+					textarea#textInput(name="textInput" placeholder="Enter your text here")
+			section.result-text
+				div#thetext
+				div#result
+				div#arraylist
+			section.result
+				.result-stats
+				.result-output
+					
+				
+

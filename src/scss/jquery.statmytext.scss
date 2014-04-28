@@ -1,0 +1,64 @@
+@mixin transition($effect: all 0.25s){
+	-moz-transition: $effect; 
+	-webkit-transition: $effect; 
+	-o-transition: $effect; 
+	-ms-transition: $effect;
+ 	transition: $effect;
+}
+.chart{
+	min-height:30px;
+	position:relative;
+}
+
+.list-chart{
+	position:relative;
+	display:block;
+	min-height:30px;
+	margin:1em 0;
+	border-left:1px solid #000;
+	border-bottom:2px solid #000;
+	li{
+		position:relative;
+		display: block;
+		margin-bottom:5px;
+		
+	}
+	.bar-container{
+
+	}
+	.bar{
+		display: block;
+		width:0;
+		height:30px;
+		background-color:#E8BCB8;
+		@include transition(all 0.5s linear);
+	}
+	span{
+		font-size:15px;
+		line-height: 30px;
+		display: inline-block;
+		&.value{
+			text-align: right;
+			display: block;
+			margin-right:-20px;
+		}
+		&.char{
+			position:absolute;
+			left:-20px;
+			top:50%;
+			margin-top:-15px;
+		}
+	}
+}
+
+.range{
+	position: absolute;
+	bottom:-30px;
+	font-size:12px;
+	margin-left:-6px;
+	text-align: right;
+	&.min-val{left:0;}
+	&.med-val{left:50%;}
+	&.max-val{left:100%;}
+}
+

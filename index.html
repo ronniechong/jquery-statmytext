@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stat My Text</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.statmytext.min.js"></script>
+    <link href="assets/css/default.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/jquery.statmytext.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+      $(function(){
+       $('#statmytext').statMyText();
+      });
+    </script>
+  </head>
+  <body>
+    <article id="statmytext" class="container">
+      <header>
+        <h1>Stat <span>My Text</span></h1>
+      </header>
+      <section class="input-text">
+        <label for="textInput">Enter your text here</label>
+        <div class="input-container">
+          <textarea id="textInput" name="textInput" placeholder="Enter your text here"></textarea>
+        </div>
+      </section>
+      <section class="result-text">
+        <div id="thetext"></div>
+        <div id="result"></div>
+        <div id="arraylist"></div>
+      </section>
+      <section class="result">
+        <div class="result-stats"></div>
+        <div class="result-output"></div>
+      </section>
+    </article>
+  </body>
+</html>
