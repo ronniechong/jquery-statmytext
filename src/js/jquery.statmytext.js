@@ -65,6 +65,8 @@ TO DO
 			'excludeNum':false,
 			'caseSensitive':false,
 			'sortFrequency':false,
+			'statsOutputClass':'result-stats',
+			'chartOutputClass':'result-output',
 			'maxCol':20
 		},options);
 
@@ -75,7 +77,7 @@ TO DO
 				timer;
 			
 			buildChart($p);
-			if (settings.displayInfo) updateInfo();
+			if (settings.displayInfo) updateStatsInfo();
 			$('#textInput',$p).keyup(function(){
 				evalText($(this).val(),$p);
 				clearInterval(timer);
@@ -174,9 +176,8 @@ TO DO
 		//Initial graphical presentation markups
 		function buildChart($parent){
 			'use strict';
-
 			var tmpHTML = '',
-				$el = $('.result-output',$parent),
+				$el = $('.'+settings.chartOutputClass,$parent),
 				count = ($('.chart',$el).length<=0)?1:$('.chart',$el).length + 1;
 
 				tmpHTML = '<div class="chart" id="chart'+count+'">';
@@ -187,9 +188,6 @@ TO DO
 				tmpHTML +='</div>';
 
 			$el.append(tmpHTML);
-
-			//line or dots
-			//http://www.terrill.ca/design/vertical_bar_graphs/
 		}
 
 		//Update content
@@ -205,7 +203,7 @@ TO DO
 				med = (getMaxMin(objCount,'max')<=10)? 5 : Math.ceil(max /2);
 				
 
-
+			//update range
 			$('.min-val',$el).text(min).attr('data-value',min);
 			$('.med-val',$el).text(med).attr('data-value',med);
 			$('.max-val',$el).text(max).attr('data-value',max);
@@ -244,33 +242,37 @@ TO DO
 			else if (str=='max') return Math.max.apply( null, arr );
 			
 		}
-		function updateInfo(){
+
+		//update stats
+		function updateStatsInfo(){
 			'use strict';
 			var a='',
 				item,
-				$el = $('.result-stats');
+				$tmp,
+				$el = $('.'+settings.statsOutputClass);
 
 			//Build if list does not exist
 			if (!$('ul',$el).length){
-				
+				$tmp=$('<ul>').addClass('list-stats');
 				for (item in objText){
-					//a += '<li><span class="textHolder">'+objText[item].textHolder + '</span><span class="value">' + objText[item].value + '</span></li>';
-					//a += '<li><span class="textHolder"></span><span class="value"></span></li>';
-					$el.append(
-						$('<li>')
-							.append('</span>')
+					$tmp.append($('<li>')
+						.append($('<span>')
 							.addClass('textHolder')
-							.append('</span>')
+						)
+						.append($('<span>')
 							.addClass('value')
+						)
+						.attr('data-type', item)
 					);
 				}
-				$el.wrap('<ul>').addClass('list-stats');
-				//$el.append(a);
+				$el.append($tmp);
 			}
 
-			
-			
-
+			//update stats
+			for (item in objText){
+				$('[data-type="'+item+'"] .textHolder', $el).text(objText[item].textHolder);
+				$('[data-type="'+item+'"] .value', $el).text(objText[item].value);
+			}
 		}
 
 		function debug(str){
