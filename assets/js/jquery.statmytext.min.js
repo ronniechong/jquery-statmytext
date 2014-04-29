@@ -123,7 +123,7 @@ TO DO
 
 			objCount = sortObj (objTmp);
 			updateChart(objCount,$parent);
-			if (settings.displayInfo) updateInfo();
+			if (settings.displayInfo) updateStatsInfo();
 			//debug(tmp);
 		}
 
@@ -194,7 +194,6 @@ TO DO
 		function updateChart(obj,$parent){
 			'use strict';
 			var a,
-				count = 1,
 				$el = $('.chart',$parent).last(),
 				$ul = $('.list-chart',$el),
 				med,
@@ -211,26 +210,14 @@ TO DO
 
 			$ul.empty();
 
-//Update only if not exist
-
 			for (a in obj){
 				var width = (obj[a]/max) * 100,
-					//width = (1/getObjSize(objCount)) * 100,
 					li =  '<li data-char="'+a+'" data-value="'+obj[a]+'">';
-					//li += '<div class="bar-container"><div class="bar" style="width:'+width+'%;">';
-					li += '<div class="bar-container"><div class="bar" style="width:1px">';
+					li += '<div class="bar-container"><div class="bar" style="width:'+width+'%;">';
 					li += '<span class="value">'+obj[a]+'</span><span class="char">'+a+'</span>';
 					li += '</div></div></li>';
 				$ul.append(li);
-				//$('li:last-child .bar',$ul).stop().animate({'width':width + '%'},20 * count);
-				//$('li:last-child .bar',$ul).delay(500).css({transition : 'width 1s ease-in-out','width':+width+'%'});
-				 
-				count++;
 			}
-			$('li',$ul).each(function(){
-				var width = ($(this).attr('data-value')/max) * 100;
-				$('.bar',this).css('width', width + '%');
-			})
 		}
 
 		//get highest and lowest value
@@ -240,7 +227,6 @@ TO DO
 			if (arr.length<=0) return 0;
 			else if (str=='min') return Math.min.apply( null, arr );
 			else if (str=='max') return Math.max.apply( null, arr );
-			
 		}
 
 		//update stats
