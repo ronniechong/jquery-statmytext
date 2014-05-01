@@ -76,10 +76,10 @@ TO DO
 			var $p = $(this),
 				timer;
 			
-			buildChart($p);
-			if (settings.displayInfo) updateStatsInfo();
+			fnBuildChart($p);
+			if (settings.displayInfo) fnUpdateStatsInfo();
 			$('#textInput',$p).keyup(function(){
-				evalText($(this).val(),$p);
+				fnEvalText($(this).val(),$p);
 				clearInterval(timer);
 			    timer = setTimeout(function() {
 			    
@@ -89,7 +89,7 @@ TO DO
 
 		
 
-		function evalText(str,$parent){
+		function fnEvalText(str,$parent){
 			'use strict';
 			var tmp = str,
 				totalWords = new Array(),
@@ -121,14 +121,14 @@ TO DO
 				}
 			}
 
-			objCount = sortObj (objTmp);
-			updateChart(objCount,$parent);
-			if (settings.displayInfo) updateStatsInfo();
+			objCount = fnSortObj (objTmp);
+			fnUpdateChart(objCount,$parent);
+			if (settings.displayInfo) fnUpdateStatsInfo();
 			//debug(tmp);
 		}
 
 		//Sort
-		function sortObj(array){
+		function fnSortObj(array){
 			'use strict';
         	var tmp = [],
           		oSorted={},
@@ -162,7 +162,7 @@ TO DO
           return oSorted;
 		};
 
-		function getObjSize(obj) {
+		function fnGetObjSize(obj) {
 			'use strict';
 		    var size = 0, 
 		    	key;
@@ -174,7 +174,7 @@ TO DO
 
 
 		//Initial graphical presentation markups
-		function buildChart($parent){
+		function fnBuildChart($parent){
 			'use strict';
 			var tmpHTML = '',
 				$el = $('.'+settings.chartOutputClass,$parent),
@@ -191,15 +191,15 @@ TO DO
 		}
 
 		//Update content
-		function updateChart(obj,$parent){
+		function fnUpdateChart(obj,$parent){
 			'use strict';
 			var a,
 				$el = $('.chart',$parent).last(),
 				$ul = $('.list-chart',$el),
 				med,
 				min = 0,
-				max = (getMaxMin(objCount,'max')<=10)? 10 : Math.ceil(getMaxMin(objCount,'max')/10) * 10;
-				med = (getMaxMin(objCount,'max')<=10)? 5 : Math.ceil(max /2);
+				max = (fnGetMaxMin(objCount,'max')<=10)? 10 : Math.ceil(getMaxMin(objCount,'max')/10) * 10;
+				med = (fnGetMaxMin(objCount,'max')<=10)? 5 : Math.ceil(max /2);
 				
 
 			//update range
@@ -221,7 +221,7 @@ TO DO
 		}
 
 		//get highest and lowest value
-		function getMaxMin(obj,str){
+		function fnGetMaxMin(obj,str){
 			'use strict';
 			var arr = Object.keys( obj ).map(function ( key ) { return obj[key]; });
 			if (arr.length<=0) return 0;
@@ -230,7 +230,7 @@ TO DO
 		}
 
 		//update stats
-		function updateStatsInfo(){
+		function fnUpdateStatsInfo(){
 			'use strict';
 			var a='',
 				item,
@@ -268,8 +268,8 @@ TO DO
 			for (item in objText){
 				a += objText[item].textHolder + '=' + objText[item].value + '<br/>';
 			}
-			a += 'Min = ' + getMaxMin(objCount,'min') + '<br/>';
-			a += 'Max = ' + getMaxMin(objCount,'max') + '<br/>';
+			a += 'Min = ' + fnGetMaxMin(objCount,'min') + '<br/>';
+			a += 'Max = ' + fnGetMaxMin(objCount,'max') + '<br/>';
 			for (x in objCount){
 				b += x + '=' + objCount[x] + '<br/>';
 			}
