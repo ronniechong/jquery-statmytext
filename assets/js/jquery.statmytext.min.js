@@ -162,9 +162,9 @@ TO DO
 			};
 
 			//Sort list
-			var fnGetSortList = function($el, sortMode, sortBy){
+			var fnGetSortList = function($ul, sortMode, sortBy){
 
-				var items = $('li', $el).get();
+				var items = $('li', $ul).get();
 				items.sort(function(a,b){
 					var keyA = $(a).text();
 					var keyB = $(b).text();
@@ -173,12 +173,16 @@ TO DO
 					if (keyA > keyB) return 1;
 					return 0;
 				});
-				var ul = $('.alphaList');
+
+
+
+
+				$ul.empty();
 				$.each(items, function(i, li){
-					ul.append(li);
+					$ul.append(li);
 				});
 
-				return true;
+				return $ul;
 			}
 
 			//Initial graphical presentation markups
@@ -215,9 +219,8 @@ TO DO
 				$('.med-val',$el).text(med).attr('data-value',med);
 				$('.max-val',$el).text(max).attr('data-value',max);
 
-
+				
 				$ul.empty();
-
 				for (a in obj){
 					var width = (obj[a]/max) * 100,
 						li =  '<li data-char="'+a+'" data-value="'+obj[a]+'">';
@@ -271,7 +274,6 @@ TO DO
 
 			var init = function(){
 				var time;
-
 				fnBuildChart($this);
 				if (settings.displayInfo) fnUpdateStatsInfo();
 				$('#textInput',$this).keyup(function(){
