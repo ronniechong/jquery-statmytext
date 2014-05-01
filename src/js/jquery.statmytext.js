@@ -65,217 +65,245 @@ TO DO
 			'excludeNum':false,
 			'caseSensitive':false,
 			'sortFrequency':false,
+			'sortBy':'desc',
 			'statsOutputClass':'result-stats',
 			'chartOutputClass':'result-output',
 			'maxCol':20
 		},options);
 
+		if ($(this).length==0) return $(this);
 
 		return this.each(function(){
 			'use strict';
-			var $p = $(this),
-				timer;
-			
-			fnBuildChart($p);
-			if (settings.displayInfo) fnUpdateStatsInfo();
-			$('#textInput',$p).keyup(function(){
-				fnEvalText($(this).val(),$p);
-				clearInterval(timer);
-			    timer = setTimeout(function() {
-			    
-			    }, 250);
-			});
-		})
+			var $this = $(this);
+	
 
-		
+			var fnEvalText = function(str,$parent){
+				'use strict';
+				var tmp = str,
+					totalWords = new Array(),
+					objTmp;
+					
+				tmp = $.trim(tmp);
 
-		function fnEvalText(str,$parent){
-			'use strict';
-			var tmp = str,
-				totalWords = new Array(),
-				objTmp;
+				//Remove markup
+				if (settings.excludeHTML){
+					tmp = str.replace(objRegex.regexHTML, '');
+				}
+
+				//Count words and characters
+				objText.whitespaces.value  = (tmp.match(objRegex.regexWhiteSpace)==null)?0:tmp.match(objRegex.regexWhiteSpace).length;
+				objText.chars.value = tmp.length;
+				totalWords = $.trim(tmp).replace(objRegex.regexExtraWhiteSpace,' ').split(' ');
+				objText.words.value = (totalWords.length==1)?(totalWords[0].length>=1)?1:0:totalWords.length;
 				
-			tmp = $.trim(tmp);
+				//tag characters
+				objTmp = {};
+				tmp = $.trim(tmp).replace((settings.excludeNum)?objRegex.regexAlpha:objRegex.regexAlphaNum,'');
+				for (var i=0;i<tmp.length;i++){
+					var a = tmp[i];
+					if (!settings.caseSensitive){a = a.toLowerCase();}
+					if (a in objTmp){
+						objTmp[a] =  objTmp[a] + 1;
+					}else{
+						objTmp[a] = 1;
+					}
+				}
 
-			//Remove markup
-			if (settings.excludeHTML){
-				tmp = str.replace(objRegex.regexHTML, '');
+				objCount = fnSortObj (objTmp);
+				fnUpdateChart(objCount,$parent);
+				if (settings.displayInfo) fnUpdateStatsInfo();
+				//debug(tmp);
 			}
 
-			//Count words and characters
-			objText.whitespaces.value  = (tmp.match(objRegex.regexWhiteSpace)==null)?0:tmp.match(objRegex.regexWhiteSpace).length;
-			objText.chars.value = tmp.length;
-			totalWords = $.trim(tmp).replace(objRegex.regexExtraWhiteSpace,' ').split(' ');
-			objText.words.value = (totalWords.length==1)?(totalWords[0].length>=1)?1:0:totalWords.length;
-			
-			//tag characters
-			objTmp = {};
-			tmp = $.trim(tmp).replace((settings.excludeNum)?objRegex.regexAlpha:objRegex.regexAlphaNum,'');
-			for (var i=0;i<tmp.length;i++){
-				var a = tmp[i];
-				if (!settings.caseSensitive){a = a.toLowerCase();}
-				if (a in objTmp){
-					objTmp[a] =  objTmp[a] + 1;
-				}else{
-					objTmp[a] = 1;
+			//Sort
+			var fnSortObj = function(array){
+				'use strict';
+	        	var tmp = [],
+	          		oSorted={},
+	          		sortFunc=(settings.sortFrequency)?function(a,b){return b>a}:function(a,b){return a>b};
+	          	 
+	          for (var k in array) {
+	          	if (settings.sortFrequency){
+	            	if (array.hasOwnProperty(k)) tmp.push({key: k, value:  array[k]});
+	           	}else{
+	           		tmp.push(k);
+	           	}
+	          }
+
+	          if (settings.sortFrequency){
+	          	tmp.sort(function(o1, o2) {
+		        	return sortFunc(o1.value, o2.value);
+		        });
+	          }else{
+	          	tmp.sort();
+	          }
+	          
+
+	          $.each(tmp, function(index, value){
+	          	if (settings.sortFrequency){
+	              	oSorted[value.key]=value.value;
+	          	}else{
+	            	oSorted[tmp[index]] = array[tmp[index]];
+	          	}
+	          });      
+
+	          return oSorted;
+			};
+
+			var fnGetObjSize = function(obj) {
+				'use strict';
+			    var size = 0, 
+			    	key;
+			    for (key in obj) {
+			        if (obj.hasOwnProperty(key)) size++;
+			    }
+			    return size;
+			};
+
+			//Sort list
+			var fnGetSortList = function($el, sortMode, sortBy){
+
+				var items = $('li', $el).get();
+				items.sort(function(a,b){
+					var keyA = $(a).text();
+					var keyB = $(b).text();
+
+					if (keyA < keyB) return -1;
+					if (keyA > keyB) return 1;
+					return 0;
+				});
+				var ul = $('.alphaList');
+				$.each(items, function(i, li){
+					ul.append(li);
+				});
+
+				return true;
+			}
+
+			//Initial graphical presentation markups
+			var fnBuildChart = function($parent){
+				'use strict';
+				var tmpHTML = '',
+					$el = $('.'+settings.chartOutputClass,$parent),
+					count = ($('.chart',$el).length<=0)?1:$('.chart',$el).length + 1;
+
+					tmpHTML = '<div class="chart" id="chart'+count+'">';
+					tmpHTML += '<ul class="list-chart"></ul>';
+					tmpHTML += '<span class="range min-val" data-value="0">0</span>';
+					tmpHTML += '<span class="range med-val" data-value="0">0</span>';
+					tmpHTML += '<span class="range max-val" data-value="0">0</span>';
+					tmpHTML +='</div>';
+
+				$el.append(tmpHTML);
+			}
+
+			//Update content
+			var fnUpdateChart = function(obj,$parent){
+				'use strict';
+				var a,
+					$el = $('.chart',$parent).last(),
+					$ul = $('.list-chart',$el),
+					med,
+					min = 0,
+					max = (fnGetMaxMin(objCount,'max')<=10)? 10 : Math.ceil(getMaxMin(objCount,'max')/10) * 10;
+					med = (fnGetMaxMin(objCount,'max')<=10)? 5 : Math.ceil(max /2);
+					
+
+				//update range
+				$('.min-val',$el).text(min).attr('data-value',min);
+				$('.med-val',$el).text(med).attr('data-value',med);
+				$('.max-val',$el).text(max).attr('data-value',max);
+
+
+				$ul.empty();
+
+				for (a in obj){
+					var width = (obj[a]/max) * 100,
+						li =  '<li data-char="'+a+'" data-value="'+obj[a]+'">';
+						li += '<div class="bar-container"><div class="bar" style="width:'+width+'%;">';
+						li += '<span class="value">'+obj[a]+'</span><span class="char">'+a+'</span>';
+						li += '</div></div></li>';
+					$ul.append(li);
 				}
 			}
 
-			objCount = fnSortObj (objTmp);
-			fnUpdateChart(objCount,$parent);
-			if (settings.displayInfo) fnUpdateStatsInfo();
-			//debug(tmp);
-		}
-
-		//Sort
-		function fnSortObj(array){
-			'use strict';
-        	var tmp = [],
-          		oSorted={},
-          		sortFunc=(settings.sortFrequency)?function(a,b){return b>a}:function(a,b){return a>b};
-          	 
-          for (var k in array) {
-          	if (settings.sortFrequency){
-            	if (array.hasOwnProperty(k)) tmp.push({key: k, value:  array[k]});
-           	}else{
-           		tmp.push(k);
-           	}
-          }
-
-          if (settings.sortFrequency){
-          	tmp.sort(function(o1, o2) {
-	        	return sortFunc(o1.value, o2.value);
-	        });
-          }else{
-          	tmp.sort();
-          }
-          
-
-          $.each(tmp, function(index, value){
-          	if (settings.sortFrequency){
-              	oSorted[value.key]=value.value;
-          	}else{
-            	oSorted[tmp[index]] = array[tmp[index]];
-          	}
-          });      
-
-          return oSorted;
-		};
-
-		function fnGetObjSize(obj) {
-			'use strict';
-		    var size = 0, 
-		    	key;
-		    for (key in obj) {
-		        if (obj.hasOwnProperty(key)) size++;
-		    }
-		    return size;
-		};
-
-
-		//Initial graphical presentation markups
-		function fnBuildChart($parent){
-			'use strict';
-			var tmpHTML = '',
-				$el = $('.'+settings.chartOutputClass,$parent),
-				count = ($('.chart',$el).length<=0)?1:$('.chart',$el).length + 1;
-
-				tmpHTML = '<div class="chart" id="chart'+count+'">';
-				tmpHTML += '<ul class="list-chart"></ul>';
-				tmpHTML += '<span class="range min-val" data-value="0">0</span>';
-				tmpHTML += '<span class="range med-val" data-value="0">0</span>';
-				tmpHTML += '<span class="range max-val" data-value="0">0</span>';
-				tmpHTML +='</div>';
-
-			$el.append(tmpHTML);
-		}
-
-		//Update content
-		function fnUpdateChart(obj,$parent){
-			'use strict';
-			var a,
-				$el = $('.chart',$parent).last(),
-				$ul = $('.list-chart',$el),
-				med,
-				min = 0,
-				max = (fnGetMaxMin(objCount,'max')<=10)? 10 : Math.ceil(getMaxMin(objCount,'max')/10) * 10;
-				med = (fnGetMaxMin(objCount,'max')<=10)? 5 : Math.ceil(max /2);
-				
-
-			//update range
-			$('.min-val',$el).text(min).attr('data-value',min);
-			$('.med-val',$el).text(med).attr('data-value',med);
-			$('.max-val',$el).text(max).attr('data-value',max);
-
-
-			$ul.empty();
-
-			for (a in obj){
-				var width = (obj[a]/max) * 100,
-					li =  '<li data-char="'+a+'" data-value="'+obj[a]+'">';
-					li += '<div class="bar-container"><div class="bar" style="width:'+width+'%;">';
-					li += '<span class="value">'+obj[a]+'</span><span class="char">'+a+'</span>';
-					li += '</div></div></li>';
-				$ul.append(li);
-			}
-		}
-
-		//get highest and lowest value
-		function fnGetMaxMin(obj,str){
-			'use strict';
-			var arr = Object.keys( obj ).map(function ( key ) { return obj[key]; });
-			if (arr.length<=0) return 0;
-			else if (str=='min') return Math.min.apply( null, arr );
-			else if (str=='max') return Math.max.apply( null, arr );
-		}
-
-		//update stats
-		function fnUpdateStatsInfo(){
-			'use strict';
-			var a='',
-				item,
-				$tmp,
-				$el = $('.'+settings.statsOutputClass);
-
-			//Build if list does not exist
-			if (!$('ul',$el).length){
-				$tmp=$('<ul>').addClass('list-stats');
-				for (item in objText){
-					$tmp.append($('<li>')
-						.append($('<span>')
-							.addClass('textHolder')
-						)
-						.append($('<span>')
-							.addClass('value')
-						)
-						.attr('data-type', item)
-					);
-				}
-				$el.append($tmp);
+			//get highest and lowest value
+			var fnGetMaxMin = function(obj,str){
+				'use strict';
+				var arr = Object.keys( obj ).map(function ( key ) { return obj[key]; });
+				if (arr.length<=0) return 0;
+				else if (str=='min') return Math.min.apply( null, arr );
+				else if (str=='max') return Math.max.apply( null, arr );
 			}
 
 			//update stats
-			for (item in objText){
-				$('[data-type="'+item+'"] .textHolder', $el).text(objText[item].textHolder);
-				$('[data-type="'+item+'"] .value', $el).text(objText[item].value);
-			}
-		}
+			var fnUpdateStatsInfo = function(){
+				'use strict';
+				var a='',
+					item,
+					$tmp,
+					$el = $('.'+settings.statsOutputClass);
 
-		function debug(str){
-			var a = '',
-				b ='';
+				//Build if list does not exist
+				if (!$('ul',$el).length){
+					$tmp=$('<ul>').addClass('list-stats');
+					for (item in objText){
+						$tmp.append($('<li>')
+							.append($('<span>')
+								.addClass('textHolder')
+							)
+							.append($('<span>')
+								.addClass('value')
+							)
+							.attr('data-type', item)
+						);
+					}
+					$el.append($tmp);
+				}
 
-			for (item in objText){
-				a += objText[item].textHolder + '=' + objText[item].value + '<br/>';
+				//update stats
+				for (item in objText){
+					$('[data-type="'+item+'"] .textHolder', $el).text(objText[item].textHolder);
+					$('[data-type="'+item+'"] .value', $el).text(objText[item].value);
+				}
 			}
-			a += 'Min = ' + fnGetMaxMin(objCount,'min') + '<br/>';
-			a += 'Max = ' + fnGetMaxMin(objCount,'max') + '<br/>';
-			for (x in objCount){
-				b += x + '=' + objCount[x] + '<br/>';
+
+			var init = function(){
+				var time;
+
+				fnBuildChart($this);
+				if (settings.displayInfo) fnUpdateStatsInfo();
+				$('#textInput',$this).keyup(function(){
+					fnEvalText($(this).val(),$this);
+					//clearInterval(timer);
+				    // timer = setTimeout(function() {
+				    
+				    // }, 250);
+				});
+
 			}
-			$('#result').html(a);
-			$('#arraylist').html(b);
-			$('#thetext').html(str);
-		}
+
+			//debugging only. remove before deploy
+			var debug = function(str){
+				var a = '',
+					b ='';
+
+				for (item in objText){
+					a += objText[item].textHolder + '=' + objText[item].value + '<br/>';
+				}
+				a += 'Min = ' + fnGetMaxMin(objCount,'min') + '<br/>';
+				a += 'Max = ' + fnGetMaxMin(objCount,'max') + '<br/>';
+				for (x in objCount){
+					b += x + '=' + objCount[x] + '<br/>';
+				}
+				$('#result').html(a);
+				$('#arraylist').html(b);
+				$('#thetext').html(str);
+			}
+
+			init();
+
+		}); //return
 	}
 }(jQuery));
