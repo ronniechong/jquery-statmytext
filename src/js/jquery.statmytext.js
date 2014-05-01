@@ -192,17 +192,32 @@ TO DO
 			//Initial graphical presentation markups
 			var fnBuildChart = function($parent){
 				'use strict';
-				var tmpHTML = '',
-					$el = $('.'+settings.chartOutputClass,$parent),
-					count = ($('.chart',$el).length<=0)?1:$('.chart',$el).length + 1;
-
-					tmpHTML = '<div class="chart" id="chart'+count+'">';
-					tmpHTML += '<ul class="list-chart"></ul>';
-					tmpHTML += '<span class="range min-val" data-value="0">0</span>';
-					tmpHTML += '<span class="range med-val" data-value="0">0</span>';
-					tmpHTML += '<span class="range max-val" data-value="0">0</span>';
-					tmpHTML +='</div>';
-
+				var $el = $('.'+settings.chartOutputClass,$parent),
+					count = ($('.chart',$el).length<=0)?1:$('.chart',$el).length + 1,
+					tmpHTML = $('<div/>')
+								.addClass('chart')
+								.attr('id','chart'+count)
+								.append(
+									$('<ul/>').addClass('list-chart')
+								)
+								.append(
+									$('<span/>')
+										.addClass('range min-val')
+										.attr('data-value',0)
+										.text('0')
+								)
+								.append(
+									$('<span/>')
+										.addClass('range med-val')
+										.attr('data-value',0)
+										.text('0')
+								)
+								.append(
+									$('<span/>')
+										.addClass('range max-val')
+										.attr('data-value',0)
+										.text('0')
+								);
 				$el.append(tmpHTML);
 			}
 
@@ -214,7 +229,7 @@ TO DO
 					$ul = $('.list-chart',$el),
 					med,
 					min = 0,
-					max = (fnGetMaxMin(objCount,'max')<=10)? 10 : Math.ceil(getMaxMin(objCount,'max')/10) * 10;
+					max = (fnGetMaxMin(objCount,'max')<=10)? 10 : Math.ceil(fnGetMaxMin(objCount,'max')/10) * 10;
 					med = (fnGetMaxMin(objCount,'max')<=10)? 5 : Math.ceil(max /2);
 					
 
