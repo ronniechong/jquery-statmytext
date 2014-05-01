@@ -64,14 +64,14 @@ TO DO
 			'excludeHTML':true,
 			'excludeNum':false,
 			'caseSensitive':false,
-			'sortFrequency':false,
-			'sortBy':'desc',
+			'sortType':'alpha',		//frequency or alpha
+			'sortBy':'desc',		//asc or desc
 			'statsOutputClass':'result-stats',
 			'chartOutputClass':'result-output',
 			'maxCol':20
 		},options);
 
-		if ($(this).length==0) return $(this);
+		if (this.length==0) return $(this);
 
 		return this.each(function(){
 			'use strict';
@@ -121,17 +121,17 @@ TO DO
 				'use strict';
 	        	var tmp = [],
 	          		oSorted={},
-	          		sortFunc=(settings.sortFrequency)?function(a,b){return b>a}:function(a,b){return a>b};
+	          		sortFunc=(settings.sortType=='frequency')?function(a,b){return b>a}:function(a,b){return a>b};
 	          	 
 	          for (var k in array) {
-	          	if (settings.sortFrequency){
+	          	if (settings.sortType=='frequency'){
 	            	if (array.hasOwnProperty(k)) tmp.push({key: k, value:  array[k]});
 	           	}else{
 	           		tmp.push(k);
 	           	}
 	          }
 
-	          if (settings.sortFrequency){
+	          if (settings.sortType=='frequency'){
 	          	tmp.sort(function(o1, o2) {
 		        	return sortFunc(o1.value, o2.value);
 		        });
@@ -141,7 +141,7 @@ TO DO
 	          
 
 	          $.each(tmp, function(index, value){
-	          	if (settings.sortFrequency){
+	          	if (settings.sortType=='frequency'){
 	              	oSorted[value.key]=value.value;
 	          	}else{
 	            	oSorted[tmp[index]] = array[tmp[index]];
@@ -165,6 +165,10 @@ TO DO
 			var fnGetSortList = function($ul, sortMode, sortBy){
 
 				var items = $('li', $ul).get();
+
+
+
+
 				items.sort(function(a,b){
 					var keyA = $(a).text();
 					var keyB = $(b).text();
@@ -177,12 +181,12 @@ TO DO
 
 
 
-				$ul.empty();
-				$.each(items, function(i, li){
-					$ul.append(li);
-				});
+				// $ul.empty();
+				// $.each(items, function(i, li){
+				// 	$ul.append(li);
+				// });
 
-				return $ul;
+				// return $ul;
 			}
 
 			//Initial graphical presentation markups
@@ -219,16 +223,37 @@ TO DO
 				$('.med-val',$el).text(med).attr('data-value',med);
 				$('.max-val',$el).text(max).attr('data-value',max);
 
-				
+
 				$ul.empty();
 				for (a in obj){
 					var width = (obj[a]/max) * 100,
-						li =  '<li data-char="'+a+'" data-value="'+obj[a]+'">';
-						li += '<div class="bar-container"><div class="bar" style="width:'+width+'%;">';
-						li += '<span class="value">'+obj[a]+'</span><span class="char">'+a+'</span>';
-						li += '</div></div></li>';
+						li = $('<li/>')
+								.attr('data-char',a)
+								.attr('data-value',obj[a])
+								.append(
+									$('<div/>')
+										.addClass('bar-container')
+										.append(
+											$('<div/>')
+												.addClass('bar')
+												.css('width',width+'%')
+												.append(
+													$('<span/>')
+													.addClass('value')
+													.html(obj[a])
+												)
+												.append(
+													$('<span/>')
+														.addClass('char')
+														.html(a)
+												)
+										)
+								);
+						
 					$ul.append(li);
 				}
+
+				//fnGetSortList($ul,settings.sortType, settings.sortBy);
 			}
 
 			//get highest and lowest value
