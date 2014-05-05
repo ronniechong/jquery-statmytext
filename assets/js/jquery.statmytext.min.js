@@ -61,11 +61,12 @@ TO DO
 		//Default settings
 		var settings = $.extend({
 			'displayInfo':true,
+			'displayController':true,
 			'excludeHTML':true,
 			'excludeNum':false,
 			'caseSensitive':false,
-			'sortType':'frequency',		//frequency or alpha
-			'sortBy':'desc',		//asc or desc
+			'sortBy':'frequency',		//frequency or alpha
+			'sortOrder':'desc',		//asc or desc
 			'statsOutputClass':'result-stats',
 			'chartOutputClass':'result-output'
 		},options);
@@ -115,39 +116,39 @@ TO DO
 			}
 
 			//Sort
-			var fnSortObj = function(array){
-				'use strict';
-	        	var tmp = [],
-	          		oSorted={},
-	          		sortFunc=(settings.sortType=='frequency')?function(a,b){return b>a}:function(a,b){return a>b};
+			// var fnSortObj = function(array){
+			// 	'use strict';
+	  //       	var tmp = [],
+	  //         		oSorted={},
+	  //         		sortFunc=(settings.sortBy=='frequency')?function(a,b){return b>a}:function(a,b){return a>b};
 	          	 
-	          for (var k in array) {
-	          	if (settings.sortType=='frequency'){
-	            	if (array.hasOwnProperty(k)) tmp.push({key: k, value:  array[k]});
-	           	}else{
-	           		tmp.push(k);
-	           	}
-	          }
+	  //         for (var k in array) {
+	  //         	if (settings.sortBy=='frequency'){
+	  //           	if (array.hasOwnProperty(k)) tmp.push({key: k, value:  array[k]});
+	  //          	}else{
+	  //          		tmp.push(k);
+	  //          	}
+	  //         }
 
-	          if (settings.sortType=='frequency'){
-	          	tmp.sort(function(o1, o2) {
-		        	return sortFunc(o1.value, o2.value);
-		        });
-	          }else{
-	          	tmp.sort();
-	          }
+	  //         if (settings.sortBy=='frequency'){
+	  //         	tmp.sort(function(o1, o2) {
+		 //        	return sortFunc(o1.value, o2.value);
+		 //        });
+	  //         }else{
+	  //         	tmp.sort();
+	  //         }
 	          
 
-	          $.each(tmp, function(index, value){
-	          	if (settings.sortType=='frequency'){
-	              	oSorted[value.key]=value.value;
-	          	}else{
-	            	oSorted[tmp[index]] = array[tmp[index]];
-	          	}
-	          });      
+	  //         $.each(tmp, function(index, value){
+	  //         	if (settings.sortBy=='frequency'){
+	  //             	oSorted[value.key]=value.value;
+	  //         	}else{
+	  //           	oSorted[tmp[index]] = array[tmp[index]];
+	  //         	}
+	  //         });      
 
-	          return oSorted;
-			};
+	  //         return oSorted;
+			// };
 
 			var fnGetObjSize = function(obj) {
 				'use strict';
@@ -160,14 +161,14 @@ TO DO
 			};
 
 			//Sort list
-			var fnGetSortList = function($ul, sortMode, sortBy){
+			var fnGetSortList = function($ul, sortBy, sortOrder){
 				var items = $('li', $ul).get();
 
 				items.sort(function(a,b){
-					var keyA = (sortMode=='alpha')?$(a).attr('data-char'):parseInt($(a).attr('data-value')),
-						keyB = (sortMode=='alpha')?$(b).attr('data-char'):parseInt($(b).attr('data-value')),
-						returnX = (sortBy=='desc')?1:-1,
-						returnY = (sortBy=='desc')?-1:1;
+					var keyA = (sortBy=='alpha')?$(a).attr('data-char'):parseInt($(a).attr('data-value')),
+						keyB = (sortBy=='alpha')?$(b).attr('data-char'):parseInt($(b).attr('data-value')),
+						returnX = (sortOrder=='desc')?1:-1,
+						returnY = (sortOrder=='desc')?-1:1;
 
 					if (keyA < keyB) return returnX;
 					if (keyA > keyB) return returnY;
@@ -261,7 +262,7 @@ TO DO
 					$ul.append(li);
 				}
 
-				$ul = fnGetSortList($ul,settings.sortType, settings.sortBy);
+				$ul = fnGetSortList($ul, settings.sortBy,settings.sortOrder);
 			}
 
 			//get highest and lowest value
@@ -271,6 +272,16 @@ TO DO
 				if (arr.length<=0) return 0;
 				else if (str=='min') return Math.min.apply( null, arr );
 				else if (str=='max') return Math.max.apply( null, arr );
+			}
+			//build controller
+
+			var fnUpdateStatsController = function(){
+				'use strict';
+
+				if (('.stats-controller').length){
+
+				}
+
 			}
 
 			//update stats
@@ -306,7 +317,7 @@ TO DO
 			}
 
 			var init = function(){
-				var time;
+				//var timer;
 
 				fnBuildChart($this);
 				
