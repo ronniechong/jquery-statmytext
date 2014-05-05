@@ -67,11 +67,8 @@ TO DO
 			'sortType':'alpha',		//frequency or alpha
 			'sortBy':'desc',		//asc or desc
 			'statsOutputClass':'result-stats',
-			'chartOutputClass':'result-output',
-			'maxCol':20
+			'chartOutputClass':'result-output'
 		},options);
-
-		if (this.length==0) return $(this);
 
 		return this.each(function(){
 			'use strict';
@@ -110,7 +107,8 @@ TO DO
 					}
 				}
 
-				objCount = fnSortObj (objTmp);
+				//objCount = fnSortObj (objTmp);
+				objCount = objTmp;
 				fnUpdateChart(objCount,$parent);
 				if (settings.displayInfo) fnUpdateStatsInfo();
 				//debug(tmp);
@@ -181,12 +179,12 @@ TO DO
 
 
 
-				// $ul.empty();
-				// $.each(items, function(i, li){
-				// 	$ul.append(li);
-				// });
+				 $ul.empty();
+				 $.each(items, function(i, li){
+				 	$ul.append(li);
+				 });
 
-				// return $ul;
+				 return $ul;
 			}
 
 			//Initial graphical presentation markups
@@ -238,7 +236,7 @@ TO DO
 				$('.med-val',$el).text(med).attr('data-value',med);
 				$('.max-val',$el).text(max).attr('data-value',max);
 
-
+				//Build bar
 				$ul.empty();
 				for (a in obj){
 					var width = (obj[a]/max) * 100,
@@ -268,7 +266,7 @@ TO DO
 					$ul.append(li);
 				}
 
-				//fnGetSortList($ul,settings.sortType, settings.sortBy);
+				$ul = fnGetSortList($ul,settings.sortType, settings.sortBy);
 			}
 
 			//get highest and lowest value
@@ -314,8 +312,11 @@ TO DO
 
 			var init = function(){
 				var time;
+
 				fnBuildChart($this);
+				
 				if (settings.displayInfo) fnUpdateStatsInfo();
+				
 				$('#textInput',$this).keyup(function(){
 					fnEvalText($(this).val(),$this);
 					//clearInterval(timer);
