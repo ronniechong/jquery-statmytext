@@ -64,7 +64,7 @@ TO DO
 			'excludeHTML':true,
 			'excludeNum':false,
 			'caseSensitive':false,
-			'sortType':'alpha',		//frequency or alpha
+			'sortType':'frequency',		//frequency or alpha
 			'sortBy':'desc',		//asc or desc
 			'statsOutputClass':'result-stats',
 			'chartOutputClass':'result-output'
@@ -161,23 +161,18 @@ TO DO
 
 			//Sort list
 			var fnGetSortList = function($ul, sortMode, sortBy){
-
 				var items = $('li', $ul).get();
 
-
-
-
 				items.sort(function(a,b){
-					var keyA = $(a).text();
-					var keyB = $(b).text();
+					var keyA = (sortMode=='alpha')?$(a).attr('data-char'):parseInt($(a).attr('data-value')),
+						keyB = (sortMode=='alpha')?$(b).attr('data-char'):parseInt($(b).attr('data-value')),
+						returnX = (sortBy=='desc')?1:-1,
+						returnY = (sortBy=='desc')?-1:1;
 
-					if (keyA < keyB) return -1;
-					if (keyA > keyB) return 1;
+					if (keyA < keyB) return returnX;
+					if (keyA > keyB) return returnY;
 					return 0;
 				});
-
-
-
 
 				 $ul.empty();
 				 $.each(items, function(i, li){
