@@ -65,16 +65,18 @@ TO DO
 			'excludeHTML':true,
 			'excludeNum':false,
 			'caseSensitive':false,
-			'sortBy':'frequency',		//frequency or alpha
-			'sortOrder':'desc',		//asc or desc
+			'sortBy':'alpha',		//frequency or alpha
+			'sortOrder':'asc',		//asc or desc
 			'statsOutputClass':'result-stats',
-			'chartOutputClass':'result-output'
+			'chartOutputClass':'result-output',
+			'listSortByClass':'.sortBy',
+			'listSortModeClass':'.sortMode'
+
 		},options);
 
 		return this.each(function(){
 			'use strict';
 			var $this = $(this);
-	
 
 			var fnEvalText = function(str,$parent){
 				'use strict';
@@ -107,58 +109,10 @@ TO DO
 						objTmp[a] = 1;
 					}
 				}
-
-				//objCount = fnSortObj (objTmp);
 				objCount = objTmp;
 				fnUpdateChart(objCount,$parent);
-				if (settings.displayInfo) fnUpdateStatsInfo();
-				//debug(tmp);
+				if (settings.displayInfo) fnUpdateStatsInfo($parent);
 			}
-
-			//Sort
-			// var fnSortObj = function(array){
-			// 	'use strict';
-	  //       	var tmp = [],
-	  //         		oSorted={},
-	  //         		sortFunc=(settings.sortBy=='frequency')?function(a,b){return b>a}:function(a,b){return a>b};
-	          	 
-	  //         for (var k in array) {
-	  //         	if (settings.sortBy=='frequency'){
-	  //           	if (array.hasOwnProperty(k)) tmp.push({key: k, value:  array[k]});
-	  //          	}else{
-	  //          		tmp.push(k);
-	  //          	}
-	  //         }
-
-	  //         if (settings.sortBy=='frequency'){
-	  //         	tmp.sort(function(o1, o2) {
-		 //        	return sortFunc(o1.value, o2.value);
-		 //        });
-	  //         }else{
-	  //         	tmp.sort();
-	  //         }
-	          
-
-	  //         $.each(tmp, function(index, value){
-	  //         	if (settings.sortBy=='frequency'){
-	  //             	oSorted[value.key]=value.value;
-	  //         	}else{
-	  //           	oSorted[tmp[index]] = array[tmp[index]];
-	  //         	}
-	  //         });      
-
-	  //         return oSorted;
-			// };
-
-			var fnGetObjSize = function(obj) {
-				'use strict';
-			    var size = 0, 
-			    	key;
-			    for (key in obj) {
-			        if (obj.hasOwnProperty(key)) size++;
-			    }
-			    return size;
-			};
 
 			//Sort list
 			var fnGetSortList = function($ul, sortBy, sortOrder){
@@ -186,7 +140,7 @@ TO DO
 			//Initial graphical presentation markups
 			var fnBuildChart = function($parent){
 				'use strict';
-				var $el = $('.'+settings.chartOutputClass,$parent),
+				var $el = $('[class='+settings.chartOutputClass+']',$parent),
 					count = ($('.chart',$el).length<=0)?1:$('.chart',$el).length + 1,
 					tmpHTML = $('<div/>')
 								.addClass('chart')
@@ -273,24 +227,23 @@ TO DO
 				else if (str=='min') return Math.min.apply( null, arr );
 				else if (str=='max') return Math.max.apply( null, arr );
 			}
-			//build controller
 
-			var fnUpdateStatsController = function(){
+
+			//build controller
+			var fnUpdateStatsController = function($parent){
 				'use strict';
 
-				if (('.stats-controller').length){
-
-				}
+				
 
 			}
 
 			//update stats
-			var fnUpdateStatsInfo = function(){
+			var fnUpdateStatsInfo = function($parent){
 				'use strict';
 				var a='',
 					item,
 					$tmp,
-					$el = $('.'+settings.statsOutputClass);
+					$el = $('[class="'+settings.statsOutputClass+'"]',$parent);
 
 				//Build if list does not exist
 				if (!$('ul',$el).length){
@@ -316,19 +269,15 @@ TO DO
 				}
 			}
 
-			var init = function(){
-				//var timer;
+			var init = function($that){
 
-				fnBuildChart($this);
+				fnBuildChart($that);
 				
-				if (settings.displayInfo) fnUpdateStatsInfo();
+				if (settings.displayInfo) fnUpdateStatsInfo($that);
+				if (settings.displayController) fnUpdateStatsController($that);
 				
-				$('#textInput',$this).keyup(function(){
-					fnEvalText($(this).val(),$this);
-					//clearInterval(timer);
-				    // timer = setTimeout(function() {
-				    
-				    // }, 250);
+				$('#textInput',$that).keyup(function(){
+					fnEvalText($(this).val(),$that);
 				});
 
 			}
@@ -351,7 +300,7 @@ TO DO
 				$('#thetext').html(str);
 			}
 
-			init();
+			init($this);
 
 		}); //return
 	}
