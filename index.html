@@ -13,35 +13,37 @@
     </script>
   </head>
   <body>
-    <article id="statmytext" class="container">
+    <article class="container">
       <header>
         <h1>Stat <span>My Text</span></h1>
       </header>
-      <section class="input-text">
-        <label for="textInput">Enter your text here</label>
-        <div class="input-container">
-          <textarea id="textInput" name="textInput" placeholder="Enter your text here"></textarea>
-        </div>
-      </section>
-      <section class="result-text">
-        <div id="thetext"></div>
-        <div id="result"></div>
-        <div id="arraylist"></div>
-      </section>
-      <section class="result">
-        <div class="stats-controller">
-          <ul class="sortMode">
-            <li data-sort="asc">Ascending</li>
-            <li data-sort="desc">Descending</li>
-          </ul>
-          <ul class="sortType">
-            <li data-order="alpha">Alphabetical</li>
-            <li data-order="frequency">Frequency</li>
-          </ul>
-        </div>
-        <div class="result-stats"></div>
-        <div class="result-output"></div>
-      </section>
+      <div id="statmytext">
+        <section class="input-text">
+          <label for="textInput">Enter your text here</label>
+          <div class="input-container">
+            <textarea id="textInput" name="textInput" placeholder="Enter your text here"></textarea>
+          </div>
+        </section>
+        <section class="result-text">
+          <div id="thetext"></div>
+          <div id="result"></div>
+          <div id="arraylist"></div>
+        </section>
+        <section class="result">
+          <div class="stats-controller">
+            <ul class="sortMode">
+              <li data-order="asc">Ascending</li>
+              <li data-order="desc">Descending</li>
+            </ul>
+            <ul class="sortType">
+              <li data-sort="alpha">Alphabetical</li>
+              <li data-sort="frequency">Frequency</li>
+            </ul>
+          </div>
+          <div class="result-stats"></div>
+          <div class="result-output"></div>
+        </section>
+      </div>
     </article>
   </body>
 </html>

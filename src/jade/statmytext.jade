@@ -1,0 +1,20 @@
+#statmytext
+	section.input-text
+		label(for="textInput") Enter your text here
+		.input-container
+			textarea#textInput(name="textInput" placeholder="Enter your text here")
+	section.result-text
+		div#thetext
+		div#result
+		div#arraylist
+	section.result
+		.stats-controller
+			ul.sortMode
+				li(data-order="asc") Ascending
+				li(data-order="desc") Descending
+
+			ul.sortType
+				li(data-sort="alpha") Alphabetical
+				li(data-sort="frequency") Frequency
+		.result-stats
+		.result-output
