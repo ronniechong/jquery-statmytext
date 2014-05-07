@@ -70,7 +70,7 @@ TO DO
 			'statsOutputClass':'result-stats',
 			'chartOutputClass':'result-output',
 			'listSortByClass':'.sortBy',
-			'listSortModeClass':'.sortMode'
+			'listSortOrderClass':'.sortOrder'
 
 		},options);
 
@@ -116,7 +116,7 @@ TO DO
 
 			//Sort list
 			var fnGetSortList = function($ul, sortBy, sortOrder){
-				var items = $('li', $ul).get();
+				var items = $ul.find('li').get();
 
 				items.sort(function(a,b){
 					var keyA = (sortBy=='alpha')?$(a).attr('data-char'):parseInt($(a).attr('data-value')),
@@ -140,8 +140,8 @@ TO DO
 			//Initial graphical presentation markups
 			var fnBuildChart = function($parent){
 				'use strict';
-				var $el = $('[class='+settings.chartOutputClass+']',$parent),
-					count = ($('.chart',$el).length<=0)?1:$('.chart',$el).length + 1,
+				var $el = $parent.find('[class='+settings.chartOutputClass+']'),
+					count = ($el.find('.chart').length<=0)?1:$el.find('.chart').length + 1,
 					tmpHTML = $('<div/>')
 								.addClass('chart')
 								.attr('id','chart'+count)
@@ -173,8 +173,8 @@ TO DO
 			var fnUpdateChart = function(obj,$parent){
 				'use strict';
 				var a,
-					$el = $('.chart',$parent).last(),
-					$ul = $('.list-chart',$el),
+					$el = $parent.find('.chart').last(),
+					$ul = $el.find('.list-chart'),
 					med,
 					min = 0,
 					max = (fnGetMaxMin(objCount,'max')<=10)? 10 : Math.ceil(fnGetMaxMin(objCount,'max')/10) * 10;
@@ -182,9 +182,9 @@ TO DO
 					
 
 				//update range
-				$('.min-val',$el).text(min).attr('data-value',min);
-				$('.med-val',$el).text(med).attr('data-value',med);
-				$('.max-val',$el).text(max).attr('data-value',max);
+				$el.find('.min-val').text(min).attr('data-value',min);
+				$el.find('.med-val').text(med).attr('data-value',med);
+				$el.find('.max-val').text(max).attr('data-value',max);
 
 				//Build bar
 				$ul.empty();
@@ -233,7 +233,6 @@ TO DO
 			var fnUpdateStatsController = function($parent){
 				'use strict';
 
-				
 
 			}
 
@@ -243,10 +242,10 @@ TO DO
 				var a='',
 					item,
 					$tmp,
-					$el = $('[class="'+settings.statsOutputClass+'"]',$parent);
+					$el = $parent.find('[class="'+settings.statsOutputClass+'"]');
 
 				//Build if list does not exist
-				if (!$('ul',$el).length){
+				if (!$el.find('ul').length){
 					$tmp=$('<ul>').addClass('list-stats');
 					for (item in objText){
 						$tmp.append($('<li>')
@@ -264,9 +263,22 @@ TO DO
 
 				//update stats
 				for (item in objText){
-					$('[data-type="'+item+'"] .textHolder', $el).text(objText[item].textHolder);
-					$('[data-type="'+item+'"] .value', $el).text(objText[item].value);
+					$('[data-type="'+item+'"]', $el).find('.textHolder').text(objText[item].textHolder);
+					$('[data-type="'+item+'"]', $el).find('.value').text(objText[item].value);
 				}
+			}
+
+			var fnSetSortOrder = function(str,$el){
+				console.log(str);
+				console.log($el);
+
+			}
+
+			//Public methods
+			$this.setSortOrder = function(str){
+				var sort = str;
+				//fnSetSortOrder(sort,$(this));
+				console.log(str);
 			}
 
 			var init = function($that){
