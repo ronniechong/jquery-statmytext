@@ -8,7 +8,14 @@ html
 		link(href="assets/css/jquery.statmytext.css", rel="stylesheet", type="text/css")
 		script(type="text/javascript")
 			$(function(){
-				$('#statmytext').statMyText();
+				var sText = $('#statmytext').statMyText();
+
+				$('.sortOrder a').click(function(e){
+					e.preventDefault();
+					var data = $(this).attr('data-order');
+					sText.setSortOrder(data);
+
+				});
 			});
 	body
 		article.container

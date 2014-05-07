@@ -9,12 +9,12 @@
 		div#arraylist
 	section.result
 		.stats-controller
-			ul.sortMode
-				li(data-order="asc"): a(href="#") Ascending
-				li(data-order="desc"): a(href="#") Descending
+			ul.sortOrder
+				li: a(href="#",data-order="asc") Ascending
+				li: a(href="#",data-order="desc") Descending
 
 			ul.sortBy
-				li(data-sort="alpha"): a(href="#") Alphabetical
-				li(data-sort="frequency"): a(href="#") Frequency
+				li: a(href="#",data-sort="alpha") Alphabetical
+				li: a(href="#",data-sort="frequency") Frequency
 		.result-stats
 		.result-output
