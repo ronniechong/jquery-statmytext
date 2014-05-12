@@ -31,7 +31,7 @@ TO DO
 */
 
 
-(function($){
+;(function($){
 	$.fn.statMyText = function(options){
 
 		var	objText = {
@@ -69,14 +69,17 @@ TO DO
 			'sortOrder':'asc',		//asc or desc
 			'statsOutputClass':'result-stats',
 			'chartOutputClass':'result-output',
-			'listSortByClass':'.sortBy',
-			'listSortOrderClass':'.sortOrder'
-
+			'controllerOutputClass':'stats-controller',
+			'listSortByClass':'sortBy',
+			'listSortOrderClass':'sortOrder',
+			'sortOrderText':['Ascending', 'Descending'],
+			'sortByText':['Alphabetical', 'Frequency']
 		},options);
 
-		return this.each(function(){
+		return this.each(function(method){
 			'use strict';
 			var $this = $(this);
+
 
 			var fnEvalText = function(str,$parent){
 				'use strict';
@@ -232,6 +235,65 @@ TO DO
 			//build controller
 			var fnUpdateStatsController = function($parent){
 				'use strict';
+				if ($parent.find('[class="'+settings.listSortOrderClass+'"]').length<=0){
+					var htmlSortOrder = $('<ul/>')
+										.addClass('sortOrder')
+										.append($('<li>')
+											.append($('<a/>')
+												.attr({
+													'href':'#',
+													'data-sort':'asc'
+												})
+												.html(settings.sortOrderText[0])
+											)
+										)
+										.append($('<li>')
+											.append($('<a/>')
+												.attr({
+													'href':'#',
+													'data-sort':'desc'
+												})
+												.html(settings.sortOrderText[1])
+											)
+										);
+					$parent.find('[class="'+settings.controllerOutputClass+'"]').append(htmlSortOrder);
+				}
+
+				if ($parent.find('[class="'+settings.listSortByClass+'"]').length<=0){
+					var htmlSortBy = $('<ul/>')
+										.addClass('sortBy')
+										.append($('<li>')
+											.append($('<a/>')
+												.attr({
+													'href':'#',
+													'data-sort':'alpha'
+												})
+												.html(settings.sortByText[0])
+											)
+										)
+										.append($('<li>')
+											.append($('<a/>')
+												.attr({
+													'href':'#',
+													'data-sort':'frequency'
+												})
+												.html(settings.sortByText[1])
+											)
+										);
+					$parent.find('[class="'+settings.controllerOutputClass+'"]').append(htmlSortBy);
+				}
+
+				$parent.find('[class="'+settings.controllerOutputClass+'"]').on('click','a',function(e){
+					e.preventDefault();
+					
+					fnUpdateSort($(this).attr('data-sort'), $parent);
+					$(this).addClass('active');
+
+					//update var
+					//reset active
+					//update sort
+				})
+
 
 
 			}
@@ -268,21 +330,9 @@ TO DO
 				}
 			}
 
-			var fnSetSortOrder = function(str,$el){
-				console.log(str);
-				console.log($el);
-
-			}
-
-			//Public methods
-			$this.setSortOrder = function(str){
-				var sort = str;
-				//fnSetSortOrder(sort,$(this));
-				console.log(str);
-			}
+			
 
 			var init = function($that){
-
 				fnBuildChart($that);
 				
 				if (settings.displayInfo) fnUpdateStatsInfo($that);
@@ -294,23 +344,7 @@ TO DO
 
 			}
 
-			//debugging only. remove before deploy
-			var debug = function(str){
-				var a = '',
-					b ='';
-
-				for (item in objText){
-					a += objText[item].textHolder + '=' + objText[item].value + '<br/>';
-				}
-				a += 'Min = ' + fnGetMaxMin(objCount,'min') + '<br/>';
-				a += 'Max = ' + fnGetMaxMin(objCount,'max') + '<br/>';
-				for (x in objCount){
-					b += x + '=' + objCount[x] + '<br/>';
-				}
-				$('#result').html(a);
-				$('#arraylist').html(b);
-				$('#thetext').html(str);
-			}
+			
 
 			init($this);
 
