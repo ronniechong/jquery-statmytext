@@ -285,12 +285,11 @@ TO DO
 
 				$parent.find('[class="'+settings.controllerOutputClass+'"]').on('click','a',function(e){
 					e.preventDefault();
-					
-					fnUpdateSort($(this).attr('data-sort'), $parent);
+					var $p = $(this).closest('ul');
+					$p.find('a').removeClass('active');
 					$(this).addClass('active');
-
+					//fnUpdateSort($(this).attr('data-sort'), $parent);
 					//update var
-					//reset active
 					//update sort
 				})
 
