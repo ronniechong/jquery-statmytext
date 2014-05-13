@@ -72,8 +72,8 @@ TO DO
 			'controllerOutputClass':'stats-controller',
 			'listSortByClass':'sortBy',
 			'listSortOrderClass':'sortOrder',
-			'sortOrderText':['Ascending', 'Descending'],
-			'sortByText':['Alphabetical', 'Frequency']
+			'sortOrderText':[['Ascending','asc'], ['Descending','desc']],
+			'sortByText':[['Alphabetical','alpha'], ['Frequency','freq']]
 		},options);
 
 		return this.each(function(method){
@@ -235,53 +235,34 @@ TO DO
 			//build controller
 			var fnUpdateStatsController = function($parent){
 				'use strict';
-				if ($parent.find('[class="'+settings.listSortOrderClass+'"]').length<=0){
-					var htmlSortOrder = $('<ul/>')
-										.addClass('sortOrder')
-										.append($('<li>')
-											.append($('<a/>')
-												.attr({
-													'href':'#',
-													'data-sort':'asc'
-												})
-												.html(settings.sortOrderText[0])
-											)
-										)
-										.append($('<li>')
-											.append($('<a/>')
-												.attr({
-													'href':'#',
-													'data-sort':'desc'
-												})
-												.html(settings.sortOrderText[1])
-											)
-										);
-					$parent.find('[class="'+settings.controllerOutputClass+'"]').append(htmlSortOrder);
-				}
+				var arrText = [settings.sortOrderText,settings.sortByText],
+					arrClass = [settings.listSortOrderClass,settings.listSortByClass],
+					strHtml,arrTmp;
+				
 
-				if ($parent.find('[class="'+settings.listSortByClass+'"]').length<=0){
-					var htmlSortBy = $('<ul/>')
-										.addClass('sortBy')
-										.append($('<li>')
-											.append($('<a/>')
-												.attr({
-													'href':'#',
-													'data-sort':'alpha'
-												})
-												.html(settings.sortByText[0])
-											)
+				for (var i=0; i<arrClass.length;i++){
+					
+					strHtml = $('<ul/>').addClass(arrClass[i]);
+
+					if ($parent.find('[class="'+arrClass[i]+'"]').length<=0){	
+
+						for (var j=0; j<arrText.length; j++){
+							arrTmp = arrText[i][j];	
+
+							strHtml.append($('<li>')
+										.append($('<a/>')
+											.attr({
+												'href':'#',
+												'data-sort':arrTmp[1]
+											})
+											.html(arrTmp[0])
 										)
-										.append($('<li>')
-											.append($('<a/>')
-												.attr({
-													'href':'#',
-													'data-sort':'frequency'
-												})
-												.html(settings.sortByText[1])
-											)
-										);
-					$parent.find('[class="'+settings.controllerOutputClass+'"]').append(htmlSortBy);
+									)
+						}
+						$parent.find('[class="'+settings.controllerOutputClass+'"]').append(strHtml);
+					}
 				}
+		
 
 				$parent.find('[class="'+settings.controllerOutputClass+'"]').on('click','a',function(e){
 					e.preventDefault();
