@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+/* line 17, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,41 +21,50 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+/* line 22, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
+/* line 24, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
+/* line 26, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
+/* line 28, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
+/* line 30, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
+/* line 103, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
+/* line 32, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
+/* line 116, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
 
+/* line 5, ../../src/scss/default.scss */
 body {
   font-family: 'Shadows Into Light Two', 'cursive';
   font-size: 18px;
@@ -63,6 +73,7 @@ body {
   background: #FFFEDE;
 }
 
+/* line 13, ../../src/scss/default.scss */
 h1 {
   font-size: 2.85em;
   text-align: center;
@@ -70,15 +81,18 @@ h1 {
   color: #FF8E86;
 }
 
+/* line 21, ../../src/scss/default.scss */
 .container {
   width: 75%;
   margin: 2em auto 0;
 }
 
+/* line 26, ../../src/scss/default.scss */
 .input-container {
   display: block;
 }
 
+/* line 30, ../../src/scss/default.scss */
 textarea {
   font-family: 'Shadows Into Light Two', 'cursive';
   font-size: 18px;

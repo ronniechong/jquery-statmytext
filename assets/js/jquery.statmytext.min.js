@@ -237,6 +237,8 @@ TO DO
 				'use strict';
 				var arrText = [settings.sortOrderText,settings.sortByText],
 					arrClass = [settings.listSortOrderClass,settings.listSortByClass],
+					$el = $parent.find('.chart').last(),
+					$ul = $el.find('.list-chart'),
 					strHtml,arrTmp;
 				
 
@@ -260,19 +262,24 @@ TO DO
 									)
 						}
 						$parent.find('[class="'+settings.controllerOutputClass+'"]').append(strHtml);
+						$parent.find('[data-sort="'+settings.sortBy+'"]').addClass('active');
+						$parent.find('[data-sort="'+settings.sortOrder+'"]').addClass('active');
 					}
 				}
 		
-
+				//Click methods
 				$parent.find('[class="'+settings.controllerOutputClass+'"]').on('click','a',function(e){
 					e.preventDefault();
-					
-					fnUpdateSort($(this).attr('data-sort'), $parent);
+					var $p = $(this).parent().closest('ul');
+					$p.find('a').removeClass('active');
 					$(this).addClass('active');
 
-					//update var
-					//reset active
-					//update sort
+					
+					//overwrites settings 
+					settings.sortBy = $parent.find($('[class="'+settings.listSortByClass+'"] .active')).attr('data-sort');
+					settings.sortOrder = $parent.find($('[class="'+settings.listSortOrderClass+'"] .active')).attr('data-sort');
+					
+					$ul  = fnGetSortList($ul, settings.sortBy,settings.sortOrder);
 				})
 
 

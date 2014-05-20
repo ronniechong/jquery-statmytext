@@ -61,3 +61,10 @@
 	&.max-val{left:100%;}
 }
 
+.stats-controller{
+	a{
+		color:#000;
+		&.active{color:red;}
+	}
+}
+

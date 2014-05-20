@@ -1,8 +1,10 @@
+/* line 8, ../../src/scss/jquery.statmytext.scss */
 .chart {
   min-height: 30px;
   position: relative;
 }
 
+/* line 13, ../../src/scss/jquery.statmytext.scss */
 .list-chart {
   position: relative;
   display: block;
@@ -11,11 +13,13 @@
   border-left: 1px solid #000;
   border-bottom: 2px solid #000;
 }
+/* line 20, ../../src/scss/jquery.statmytext.scss */
 .list-chart li {
   position: relative;
   display: block;
   margin-bottom: 5px;
 }
+/* line 28, ../../src/scss/jquery.statmytext.scss */
 .list-chart .bar {
   display: block;
   width: 0;
@@ -27,16 +31,19 @@
   -ms-transition: all 0.5s linear;
   transition: all 0.5s linear;
 }
+/* line 35, ../../src/scss/jquery.statmytext.scss */
 .list-chart span {
   font-size: 15px;
   line-height: 30px;
   display: inline-block;
 }
+/* line 39, ../../src/scss/jquery.statmytext.scss */
 .list-chart span.value {
   text-align: right;
   display: block;
   margin-right: -20px;
 }
+/* line 44, ../../src/scss/jquery.statmytext.scss */
 .list-chart span.char {
   position: absolute;
   left: -20px;
@@ -44,6 +51,7 @@
   margin-top: -15px;
 }
 
+/* line 53, ../../src/scss/jquery.statmytext.scss */
 .range {
   position: absolute;
   bottom: -30px;
@@ -51,12 +59,24 @@
   margin-left: -6px;
   text-align: right;
 }
+/* line 59, ../../src/scss/jquery.statmytext.scss */
 .range.min-val {
   left: 0;
 }
+/* line 60, ../../src/scss/jquery.statmytext.scss */
 .range.med-val {
   left: 50%;
 }
+/* line 61, ../../src/scss/jquery.statmytext.scss */
 .range.max-val {
   left: 100%;
+}
+
+/* line 65, ../../src/scss/jquery.statmytext.scss */
+.stats-controller a {
+  color: #000;
+}
+/* line 67, ../../src/scss/jquery.statmytext.scss */
+.stats-controller a.active {
+  color: red;
 }
