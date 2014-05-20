@@ -73,8 +73,17 @@ TO DO
 			'listSortByClass':'sortBy',
 			'listSortOrderClass':'sortOrder',
 			'sortOrderText':[['Ascending','asc'], ['Descending','desc']],
-			'sortByText':[['Alphabetical','alpha'], ['Frequency','freq']]
+			'sortByText':[['Alphabetical','alpha'], ['Frequency','freq']],
+			'onSortComplete':function(e){
+			}
 		},options);
+
+		var callback = {
+			'onSortCompleteCallback':{
+				'sortBy':settings.sortBy,
+				'sortOrder':settings.sortOrder
+			}
+		}
 
 		return this.each(function(method){
 			'use strict';
@@ -137,6 +146,10 @@ TO DO
 				 	$ul.append(li);
 				 });
 
+				 //callback
+				 if ( $.isFunction( settings.onSortComplete ) ) {
+ 				   settings.onSortComplete.call( $this,callback.onSortCompleteCallback );
+				}
 				 return $ul;
 			}
 
@@ -241,7 +254,7 @@ TO DO
 					$ul = $el.find('.list-chart'),
 					strHtml,arrTmp;
 				
-
+				//build list if not exist
 				for (var i=0; i<arrClass.length;i++){
 					
 					strHtml = $('<ul/>').addClass(arrClass[i]);
@@ -267,23 +280,21 @@ TO DO
 					}
 				}
 		
-				//Click methods
+				//Update sort List via click events
 				$parent.find('[class="'+settings.controllerOutputClass+'"]').on('click','a',function(e){
 					e.preventDefault();
 					var $p = $(this).parent().closest('ul');
 					$p.find('a').removeClass('active');
 					$(this).addClass('active');
 
-					
 					//overwrites settings 
-					settings.sortBy = $parent.find($('[class="'+settings.listSortByClass+'"] .active')).attr('data-sort');
-					settings.sortOrder = $parent.find($('[class="'+settings.listSortOrderClass+'"] .active')).attr('data-sort');
+					settings.sortBy = callback.onSortCompleteCallback.sortBy = $parent.find($('[class="'+settings.listSortByClass+'"] .active')).attr('data-sort');
+					settings.sortOrder = callback.onSortCompleteCallback.sortOrder = $parent.find($('[class="'+settings.listSortOrderClass+'"] .active')).attr('data-sort');
 					
 					$ul  = fnGetSortList($ul, settings.sortBy,settings.sortOrder);
+
+					
 				})
-
-
-
 			}
 
 			//update stats
@@ -316,10 +327,9 @@ TO DO
 					$('[data-type="'+item+'"]', $el).find('.textHolder').text(objText[item].textHolder);
 					$('[data-type="'+item+'"]', $el).find('.value').text(objText[item].value);
 				}
-			}
+			}			
 
-			
-
+			//Init
 			var init = function($that){
 				fnBuildChart($that);
 				
@@ -331,8 +341,6 @@ TO DO
 				});
 
 			}
-
-			
 
 			init($this);
 
