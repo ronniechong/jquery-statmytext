@@ -2,34 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2014 Ronnie Chong
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 ********************************************************************************/
-
-
-/*
-TO DO
-
- - callbacks methods
- - update on demand
-*/
-
 
 ;(function($){
 	$.fn.statMyText = function(options){
@@ -75,6 +48,7 @@ TO DO
 			'sortOrderText':[['Ascending','asc'], ['Descending','desc']],
 			'sortByText':[['Alphabetical','alpha'], ['Frequency','freq']],
 			'onSortComplete':function(e){
+
 			}
 		},options);
 
@@ -182,7 +156,7 @@ TO DO
 										.attr('data-value',0)
 										.text('0')
 								);
-				$el.append(tmpHTML);
+				$el.append(tmpHTML).hide();
 			}
 
 			//Update content
@@ -193,10 +167,11 @@ TO DO
 					$ul = $el.find('.list-chart'),
 					med,
 					min = 0,
-					max = (fnGetMaxMin(objCount,'max')<=10)? 10 : Math.ceil(fnGetMaxMin(objCount,'max')/10) * 10;
-					med = (fnGetMaxMin(objCount,'max')<=10)? 5 : Math.ceil(max /2);
-					
+					max = (fnGetMaxMin(objCount,'max')<=10)? 10 : Math.ceil(fnGetMaxMin(objCount,'max')/10) * 10,
+					med = (fnGetMaxMin(objCount,'max')<=10)? 5 : Math.ceil(max /2),
+					chart = $parent.find('[class='+settings.chartOutputClass+']');
 
+				if (chart.is(':hidden')) chart.fadeIn(300);
 				//update range
 				$el.find('.min-val').text(min).attr('data-value',min);
 				$el.find('.med-val').text(med).attr('data-value',med);
