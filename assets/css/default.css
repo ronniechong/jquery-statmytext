@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+@import url(http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700);
 /* line 17, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -66,39 +66,103 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 5, ../../src/scss/default.scss */
 body {
-  font-family: 'Shadows Into Light Two', 'cursive';
-  font-size: 18px;
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 15px;
   font-weight: 400;
   line-height: 130%;
-  background: #FFFEDE;
+  background: #F5FAFA;
+  color: #333;
 }
 
-/* line 13, ../../src/scss/default.scss */
+/* line 14, ../../src/scss/default.scss */
 h1 {
-  font-size: 2.85em;
+  font-size: 5em;
+  text-transform: uppercase;
+  font-weight: 700;
   text-align: center;
-  margin-bottom: 0.5em;
-  color: #FF8E86;
+  letter-spacing: 10px;
+  line-height: 100%;
+  color: #ffffff;
 }
 
-/* line 21, ../../src/scss/default.scss */
+/* line 24, ../../src/scss/default.scss */
+h2 {
+  font-size: 1.2em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 100%;
+  color: #ffffff;
+}
+
+/* line 32, ../../src/scss/default.scss */
+a {
+  color: #333;
+}
+
+/* line 36, ../../src/scss/default.scss */
 .container {
-  width: 75%;
-  margin: 2em auto 0;
+  min-width: 640px;
+  margin: 0 auto;
 }
 
-/* line 26, ../../src/scss/default.scss */
+/* line 40, ../../src/scss/default.scss */
+header, section {
+  padding: 2em;
+}
+
+/* line 41, ../../src/scss/default.scss */
+header {
+  background: #ACD1E9;
+}
+
+/* line 44, ../../src/scss/default.scss */
 .input-container {
-  display: block;
+  float: left;
+  width: 60%;
 }
 
-/* line 30, ../../src/scss/default.scss */
+/* line 48, ../../src/scss/default.scss */
+label {
+  font-weight: 700;
+  line-height: 150%;
+  display: block;
+  text-transform: uppercase;
+}
+
+/* line 54, ../../src/scss/default.scss */
 textarea {
-  font-family: 'Shadows Into Light Two', 'cursive';
+  font-family: 'Quattrocento Sans', sans-serif;
   font-size: 18px;
-  min-width: 75%;
-  max-width: 75%;
-  min-height: 15em;
-  padding: 1em;
-  border: 0;
+  width: 95%;
+  max-width: 95%;
+  min-width: 95%;
+  min-height: 10em;
+  padding: 2.5%;
+  border: 1px solid #ACD1E9;
+  color: #333;
+  background: #F5FAFA;
+}
+
+/* line 67, ../../src/scss/default.scss */
+.input-text {
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* line 72, ../../src/scss/default.scss */
+.result {
+  float: right;
+  width: 40%;
+  margin-top: 1.5em;
+}
+/* line 76, ../../src/scss/default.scss */
+.result > div {
+  margin-left: 1.5em;
+}
+
+/* line 79, ../../src/scss/default.scss */
+.result-output {
+  padding: 1em 2em 3em 3em;
+  clear: both;
+  margin-top: 1em;
 }

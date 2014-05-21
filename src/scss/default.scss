@@ -1,38 +1,83 @@
 //Compass Reset
 @import "compass/reset";
-@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+@import url(http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700);
 
 body{
-	font-family: 'Shadows Into Light Two', 'cursive';
-	font-size:18px;
+	font-family: 'Quattrocento Sans', sans-serif;
+	font-size:15px;
 	font-weight:400;
 	line-height:130%;
-	background:#FFFEDE;
+	background:#F5FAFA;
+	color:#333;
 }
 
 h1{
-	font-size:2.85em;
+	font-size:5em;
+	text-transform:uppercase;
+	font-weight:700;
 	text-align: center;
-	margin-bottom:0.5em;
-	color:#FF8E86;
+	letter-spacing:10px;
+	line-height:100%;
+	color:#ffffff;
+}
 
+h2{
+	font-size:1.2em;
+	text-transform:uppercase;
+	text-align: center;
+	line-height:100%;
+	color:#ffffff;
+}
+
+a{
+	color:#333;
 }
 
 .container{
-	width:75%;
-	margin:2em auto 0;
+	min-width:640px;
+	margin:0 auto;
 }
-
+header,section{padding:2em;}
+header{
+	background:#ACD1E9;
+}
 .input-container{
+	float:left;
+	width:60%;
+}
+label{
+	font-weight:700;
+	line-height:150%;
 	display:block;
+	text-transform:uppercase;
+}
+textarea{
+	font-family: 'Quattrocento Sans', sans-serif;
+	font-size:18px;
+	width:95%;
+	max-width:95%;
+	min-width:95%;
+	min-height:10em;
+	padding:2.5%;
+	border:1px solid #ACD1E9;
+	color:#333;
+	background:#F5FAFA;
 }
 
-textarea{
-	font-family: 'Shadows Into Light Two', 'cursive';
-	font-size:18px;
-	min-width:75%;
-	max-width:75%;
-	min-height:15em;
-	padding:1em;
-	border:0;
+.input-text{
+	background:#ffffff;
+	overflow:hidden;
+}
+
+.result{
+	float:right;
+	width:40%;
+	margin-top:1.5em;
+	> div{margin-left:1.5em;}
+}
+
+.result-output{
+	padding:1em 2em 3em 3em;
+	clear:both;
+	margin-top:1em;
 }

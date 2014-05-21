@@ -13,14 +13,19 @@
 .list-chart{
 	position:relative;
 	display:block;
-	min-height:30px;
+	min-height:25px;
 	margin:1em 0;
-	border-left:1px solid #000;
-	border-bottom:2px solid #000;
+	border-left:1px solid #6D929B;
+	border-bottom:1px solid #6D929B;
 	li{
 		position:relative;
 		display: block;
 		margin-bottom:5px;
+		&:last-child{margin-bottom:0;}
+		&:hover{
+			.bar{background:darken(#C1DAD6,10%);}
+			span{color:#000;}
+		}
 	}
 	.bar-container{
 
@@ -28,23 +33,24 @@
 	.bar{
 		display: block;
 		width:0;
-		height:30px;
-		background-color:#E8BCB8;
+		height:25px;
+		background:#C1DAD6;
 		@include transition(all 0.5s linear);
 	}
 	span{
 		font-size:15px;
-		line-height: 30px;
+		line-height: 25px;
 		display: inline-block;
 		&.value{
 			text-align: right;
 			display: block;
-			margin-right:-20px;
+			margin-right:-25px;
 		}
 		&.char{
 			position:absolute;
 			left:-20px;
 			top:50%;
+			font-weight: 700;
 			margin-top:-15px;
 		}
 	}
@@ -62,9 +68,49 @@
 }
 
 .stats-controller{
+	ul{
+		border:1px solid #ACD1E9;
+		overflow:hidden;
+		width:auto;
+		margin-bottom:10px;
+	}
+	li{
+		float:left;
+		width:50%;
+	}
 	a{
-		color:#000;
-		&.active{color:red;}
+		background:#F5FAFA;
+		padding:5px 10px;
+		display:block;
+		text-align: center;
+		text-decoration: none;
+		@include transition(all 0.25s linear);
+		&:hover{
+			background:#ACD1E9;
+		}
+		&.active{
+			background:#ACD1E9;
+			font-weight: 700;
+		}
+	}
+}
+
+.result-stats{
+	margin-bottom:15px;
+	ul{
+		width:50%;
+	}
+	li{
+		display:block;
+	}
+	.textHolder{
+		width:70%;
+		display: inline-block;
+	}
+	.value{
+		width:30%;
+		display:inline-block;
+		text-align: right;
 	}
 }
 
