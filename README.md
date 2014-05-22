@@ -42,6 +42,17 @@ Add the HTML markup
 
 
 ###Available settings###
+
+    <script type="text/javascript">
+        $(function(e){
+            $('#statmytext').statMyText({
+                'displayInfo':false,
+                onSortComplete:function(e){
+                    //Do something fancy
+                }
+            });
+        });
+    </script>
 Properties | Description | Type | Values
 ---|---|---|---
 displayInfo | Display statistics | Boolean | true (default) or false
@@ -58,4 +69,4 @@ listSortByClass | class for Sort By list | string | sortBy (default)
 listSortOrderClass | class for Sort Order list | string |  sortOrder (default)
 sortOrderText | Sort Order text | array | `['Ascending','Descending']` (default)
 sortByText | Sort By text | array | `['Alphabetical','Frequency']` (default)
-onSortComplete:function(e) | call back on sort completion | function | returns e.sortBy and e.sortOrder string
+onSortComplete | call back on sort completion | function | returns e.sortBy and e.sortOrder string
