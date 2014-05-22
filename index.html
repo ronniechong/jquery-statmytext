@@ -3,39 +3,49 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Jquery-statmytext by ronniechong</title>
-
+    <title>jquery-statmytext</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="https://raw.githubusercontent.com/ronniechong/jquery-statmytext/master/assets/js/jquery.statmytext.min.js"></script>
     <link rel="stylesheet" href="https://raw.githubusercontent.com/ronniechong/jquery-statmytext/master/assets/css/default.css">
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/ronniechong/jquery-statmytext/master/assets/css/jquery.statmytext.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+      $(function(){
+       var sText = $('#statmytext').statMyText();
+      });
+    </script>
   </head>
   <body>
-    <div class="wrapper">
+  
+  
+    <a href="https://github.com/ronniechong/jquery-statmytext"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    <article class="container">
       <header>
-        <h1>Jquery-statmytext</h1>
-        <p>Statistics of characters in your text</p>
-
-        <p class="view"><a href="https://github.com/ronniechong/jquery-statmytext">View the Project on GitHub <small>ronniechong/jquery-statmytext</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/ronniechong/jquery-statmytext/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/ronniechong/jquery-statmytext/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/ronniechong/jquery-statmytext">View On <strong>GitHub</strong></a></li>
-        </ul>
+        <h1>Stat My Text</h1>
+        <h2>A simple characters statistic plugin</h2>
       </header>
-      <section>
-        <p>Sample Page</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/ronniechong">ronniechong</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
+      <div id="statmytext">
+        <section class="input-text">
+          <div class="input-container">
+            <label for="textInput">Enter your text here</label>
+            <textarea id="textInput" name="textInput" placeholder="Type in some goodness"></textarea>
+          </div>
+          <div class="result">
+            <div class="result-stats"></div>
+            <div class="stats-controller"></div>
+          </div>
+        </section>
+        <section class="result-output"></section>
+      </div>
+    </article>
+    
+    
+    
     <script src="javascripts/scale.fix.js"></script>
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
