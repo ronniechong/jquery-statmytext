@@ -1,8 +1,10 @@
 ##jquery-statmytext##
-
-Statistics of characters in your text
-
 A simple characters statistic plugin
+
+###History Log###
+
+Ver 1.0 (22nd May 2014)
+- Version 1.0 released
 
 ###How to use###
 
