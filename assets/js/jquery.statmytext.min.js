@@ -7,7 +7,8 @@ Copyright (c) 2014 Ronnie Chong
 ;(function($){
 	$.fn.statMyText = function(options){
 
-		var	objText = {
+		var	CONST_SORT = [['alpha','freq'],['asc','desc']],
+			objText = {
 				'chars':{
 					'value':0,
 					'textHolder':'Characters'
@@ -27,7 +28,7 @@ Copyright (c) 2014 Ronnie Chong
 				'regexAlphaNum':/[^a-z0-9]/gi,
 				'regexAlpha':/[^a-z]/gi,
 				'regexWhiteSpace':/\s/g
-			}
+			},
 			objCount = {};
 			
 
@@ -38,16 +39,16 @@ Copyright (c) 2014 Ronnie Chong
 			'excludeHTML':true,
 			'excludeNum':false,
 			'caseSensitive':false,
-			'sortBy':'alpha',		//frequency or alpha
-			'sortOrder':'asc',		//asc or desc
+			'sortBy':CONST_SORT[0][0],		//frequency or alpha
+			'sortOrder':CONST_SORT[1][0],		//asc or desc
 			'statsOutputClass':'result-stats',
 			'chartOutputClass':'result-output',
 			'controllerOutputClass':'stats-controller',
 			'listSortByClass':'sortBy',
 			'listSortOrderClass':'sortOrder',
-			'sortOrderText':[['Ascending','asc'], ['Descending','desc']],
-			'sortByText':[['Alphabetical','alpha'], ['Frequency','freq']],
-			'onSortComplete':function(e){
+			'sortOrderText':['Ascending','Descending'],
+			'sortByText':['Alphabetical','Frequency'],
+			onSortComplete:function(e){
 
 			}
 		},options);
@@ -223,8 +224,8 @@ Copyright (c) 2014 Ronnie Chong
 			//build controller
 			var fnUpdateStatsController = function($parent){
 				'use strict';
-				var arrText = [settings.sortOrderText,settings.sortByText],
-					arrClass = [settings.listSortOrderClass,settings.listSortByClass],
+				var arrText = [settings.sortByText,settings.sortOrderText],
+					arrClass = [settings.listSortByClass,settings.listSortOrderClass],
 					$el = $parent.find('.chart').last(),
 					$ul = $el.find('.list-chart'),
 					strHtml,arrTmp;
@@ -243,9 +244,9 @@ Copyright (c) 2014 Ronnie Chong
 										.append($('<a/>')
 											.attr({
 												'href':'#',
-												'data-sort':arrTmp[1]
+												'data-sort':CONST_SORT[i][j]
 											})
-											.html(arrTmp[0])
+											.html(arrTmp)
 										)
 									)
 						}
@@ -267,8 +268,6 @@ Copyright (c) 2014 Ronnie Chong
 					settings.sortOrder = callback.onSortCompleteCallback.sortOrder = $parent.find($('[class="'+settings.listSortOrderClass+'"] .active')).attr('data-sort');
 					
 					$ul  = fnGetSortList($ul, settings.sortBy,settings.sortOrder);
-
-					
 				})
 			}
 
