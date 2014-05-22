@@ -1,6 +1,9 @@
 ##jquery-statmytext##
 A simple characters statistic plugin
 
+###Demo###
+http://ronniechong.github.io/jquery-statmytext/
+
 ###History Log###
 
 Ver 1.0 (22nd May 2014)
