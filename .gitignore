@@ -2,3 +2,5 @@
 *.rb
 
 *.scssc
+
+node_modules/
