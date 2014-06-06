@@ -6,8 +6,11 @@ http://ronniechong.github.io/jquery-statmytext/
 
 ###History Log###
 
+Ver 1.0.1 (6th June 2014)
+- Added Grunt tasks
+
 Ver 1.0 (22nd May 2014)
-- Version 1.0 released
+- Version 1.0.0 released
 
 ###How to use###
 
