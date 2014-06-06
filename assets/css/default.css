@@ -1,5 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700);
-/* line 17, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -21,50 +20,41 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
 
-/* line 5, ../../src/scss/default.scss */
 body {
   font-family: 'Quattrocento Sans', sans-serif;
   font-size: 15px;
@@ -74,7 +64,6 @@ body {
   color: #333;
 }
 
-/* line 14, ../../src/scss/default.scss */
 h1 {
   font-size: 5em;
   text-transform: uppercase;
@@ -85,7 +74,6 @@ h1 {
   color: #ffffff;
 }
 
-/* line 24, ../../src/scss/default.scss */
 h2 {
   font-size: 1.2em;
   text-transform: uppercase;
@@ -94,34 +82,28 @@ h2 {
   color: #ffffff;
 }
 
-/* line 32, ../../src/scss/default.scss */
 a {
   color: #333;
 }
 
-/* line 36, ../../src/scss/default.scss */
 .container {
   min-width: 640px;
   margin: 0 auto;
 }
 
-/* line 40, ../../src/scss/default.scss */
 header, section {
   padding: 2.5em;
 }
 
-/* line 41, ../../src/scss/default.scss */
 header {
   background: #ACD1E9;
 }
 
-/* line 44, ../../src/scss/default.scss */
 .input-container {
   float: left;
   width: 60%;
 }
 
-/* line 48, ../../src/scss/default.scss */
 label {
   font-weight: 700;
   line-height: 150%;
@@ -129,7 +111,6 @@ label {
   text-transform: uppercase;
 }
 
-/* line 54, ../../src/scss/default.scss */
 textarea {
   font-family: 'Quattrocento Sans', sans-serif;
   font-size: 18px;
@@ -143,24 +124,20 @@ textarea {
   background: #F5FAFA;
 }
 
-/* line 67, ../../src/scss/default.scss */
 .input-text {
   background: #ffffff;
   overflow: hidden;
 }
 
-/* line 72, ../../src/scss/default.scss */
 .result {
   float: right;
   width: 40%;
   margin-top: 1.5em;
 }
-/* line 76, ../../src/scss/default.scss */
 .result > div {
   margin-left: 1.5em;
 }
 
-/* line 79, ../../src/scss/default.scss */
 .result-output {
   padding: 1em 2em 3em 3em;
   clear: both;

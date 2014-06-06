@@ -5,7 +5,7 @@ Copyright (c) 2014 Ronnie Chong
 ********************************************************************************/
 
 ;(function($){
-	$.fn.statMyText = function(options){
+	$.fn.statMyText= function(options){
 
 		var	CONST_SORT = [['alpha','freq'],['asc','desc']],
 			objText = {
